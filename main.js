@@ -51,11 +51,12 @@ const Automata = (() => {
     function createAutomata(spec) {
         const exports = {};
         const container = document.getElementById(spec.containerID);
+        const cellsPerRow = Math.floor(container.offsetWidth / 10);
         const rules = spec.rules.map(rule => Rule(rule));
         const newRow = calcNewRow.bind(undefined, rules);
     
         exports.run = () => {
-            container.appendChild(genFirstRow(spec.cellsPerRow));
+            container.appendChild(genFirstRow(cellsPerRow));
             let i=0;
             const timer = setInterval(() => {
                 container.appendChild(newRow(container.children[i]));
