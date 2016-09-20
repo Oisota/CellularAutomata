@@ -7,28 +7,16 @@
         <link rel="stylesheet" href="style.css" type="text/css" />
     </head>
     <body>
+        <div id="control">
+            <form name="regen-form">
+                <label for="rule">Rule: </label>
+                <input type="text" name="rule-input" id="rule" value="10000001" />
+                <input type="submit" name="rule-submit" id="regen" value="Generate" />
+            </form>
+        </div>
         <div id="container">
         </div>
         <script src="automata.js"></script> 
-        <script type="text/javascript" charset="utf-8">
-
-const automata = Automata({
-    rowCount: 300,
-    containerID: 'container',
-    delay: 50,
-    rules: [
-        [1,1,1,1],
-        [1,1,0,0],
-        [1,0,1,1],
-        [1,0,0,0],
-        [0,1,1,0],
-        [0,1,0,0],
-        [0,0,1,0],
-        [0,0,0,1]
-    ]
-});
-automata.run();
-
-        </script>
+        <script src="main.js"></script> 
     </body>
 </html>

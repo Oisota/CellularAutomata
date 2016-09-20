@@ -2,8 +2,12 @@ body {
     background-color: #111111;
 }
 
-#container {
+#container, #control {
     text-align: center;
+}
+
+#control {
+    margin: 1em;
 }
 
 .row {
@@ -23,4 +27,8 @@ body {
 
 .active {
     background-color: #661111;
+}
+
+label {
+    color: #EEEEEE;
 }

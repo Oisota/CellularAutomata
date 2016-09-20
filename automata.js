@@ -50,21 +50,29 @@ const Automata = (() => {
     
     function createAutomata(spec) {
         const exports = {};
+        const ruleBase = [
+            [1,1,1],
+            [1,1,0],
+            [1,0,1],
+            [1,0,0],
+            [0,1,1],
+            [0,1,0],
+            [0,0,1],
+            [0,0,0]
+        ];
         const container = document.getElementById(spec.containerID);
+        container.innerHTML = '';
         const cellsPerRow = Math.floor(container.offsetWidth / 10);
-        const rules = spec.rules.map(rule => Rule(rule));
+        const rules = ruleBase
+            .map((rule, idx) => rule.concat(spec.rule[idx])) //add rule to rule base
+            .map(rule => Rule(rule)); //convert to rule objects
         const newRow = calcNewRow.bind(undefined, rules);
     
         exports.run = () => {
             container.appendChild(genFirstRow(cellsPerRow));
-            let i=0;
-            const timer = setInterval(() => {
+            for (let i=0; i<spec.rowCount; i++) {
                 container.appendChild(newRow(container.children[i]));
-                i=i+1;
-                if (i === spec.rowCount) {
-                    clearInterval(timer);
-                }
-            }, spec.delay);
+            }
         };
         return exports;
     }
