@@ -2,15 +2,19 @@
 
 const Automata = (() => {
 
-    function genFirstRow(cellsPerRow) {
-        const randState = () => Math.random() > 0.5 ? 'active' : 'inactive';
+    function genFirstRow(cellsPerRow, rand) {
+        const randomSelect = (arr) => arr[Math.floor(Math.random() * arr.length)];
         const row = document.createElement('div');
         row.setAttribute('class', 'row');
     
         for (let i=0; i<cellsPerRow; i++) {
             const cell = document.createElement('div');
-            cell.setAttribute('class', randState());
+            cell.setAttribute('class', rand ? randomSelect(['active', 'inactive']) : 'inactive');
             row.appendChild(cell);
+        }
+
+        if (!rand) {
+            row.children[Math.floor(cellsPerRow/2)].setAttribute('class', 'active');
         }
         return row; 
     }
@@ -69,7 +73,7 @@ const Automata = (() => {
         const newRow = calcNewRow.bind(undefined, rules);
     
         exports.run = () => {
-            container.appendChild(genFirstRow(cellsPerRow));
+            container.appendChild(genFirstRow(cellsPerRow, spec.randState));
             for (let i=0; i<spec.rowCount; i++) {
                 container.appendChild(newRow(container.children[i]));
             }

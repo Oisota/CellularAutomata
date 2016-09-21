@@ -10,6 +10,10 @@ body {
     margin: 1em;
 }
 
+#regen {
+    margin-left: 1.5em;
+}
+
 .row {
     margin: -8px;
 }
@@ -31,4 +35,5 @@ body {
 
 label {
     color: #EEEEEE;
+    margin-left: 1.5em;
 }

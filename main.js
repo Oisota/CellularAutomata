@@ -1,6 +1,7 @@
 (() => {
 
     const automata = Automata({
+        randState: true,
         rowCount: 300,
         containerID: 'container',
         delay: 50,
@@ -19,7 +20,9 @@ document
         .value
         .split('')
         .map(value => Number(value));
+    const randState = event.target[1].checked;
     const automata = Automata({
+        randState: randState,
         rowCount: 300,
         containerID: 'container',
         delay: 50,
