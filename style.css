@@ -10,6 +10,16 @@ body {
     margin: 1em;
 }
 
+#control a {
+    float: right;
+    margin-top: -1.3em;
+    color: #119999;
+}
+
+#control a:hover {
+    color: #44CCCC;
+}
+
 #regen {
     margin-left: 1.5em;
 }
