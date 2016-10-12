@@ -2,25 +2,25 @@
 
 const Automata = (() => {
 
-    function genFirstRow(cellsPerRow, rand) {
+    function genFirstRow(cellsPerRow, rand, color1, color2) {
         const randomSelect = (arr) => arr[Math.floor(Math.random() * arr.length)];
         const row = document.createElement('div');
         row.setAttribute('class', 'row');
     
         for (let i=0; i<cellsPerRow; i++) {
             const cell = document.createElement('div');
-            cell.setAttribute('class', rand ? randomSelect(['active', 'inactive']) : 'inactive');
+            cell.style.backgroundColor = rand ? randomSelect([color1, color2]) : color2;
             row.appendChild(cell);
         }
 
         if (!rand) {
-            row.children[Math.floor(cellsPerRow/2)].setAttribute('class', 'active');
+            row.children[Math.floor(cellsPerRow/2)].style.backgroundColor = color1;
         }
         return row; 
     }
     
-    function calcNewRow(rules, oldRow) {
-        const state = (cell) => cell.getAttribute('class') === 'active';
+    function calcNewRow(rules, oldRow, color1, color2) {
+        const state = (cell) => cell.style.backgroundColor === color1;
         const newRow = document.createElement('div');
         newRow.setAttribute('class', 'row');
     
@@ -35,12 +35,18 @@ const Automata = (() => {
                 if (state(left) === rule.left && 
                     state(center) === rule.center &&
                     state(right) === rule.right) {
-                    newCenter.setAttribute('class', rule.newCell ? 'active' : 'inactive');
+                    newCenter.style.backgroundColor =  rule.newCell ? color1 : color2;
                 }
             });
             newRow.appendChild(newCenter);
         }
         return newRow;
+    }
+
+    function Color(hexCode) {
+        const el = document.createElement('div');
+        el.style.backgroundColor = hexCode;
+        return el.style.backgroundColor;
     }
     
     function Rule(rule) {
@@ -64,6 +70,8 @@ const Automata = (() => {
             [0,0,1],
             [0,0,0]
         ];
+        const color1 = Color(spec.color1);
+        const color2 = Color(spec.color2);
         const container = document.getElementById(spec.containerID);
         container.innerHTML = '';
         const cellsPerRow = Math.floor(container.offsetWidth / 10);
@@ -73,9 +81,9 @@ const Automata = (() => {
         const newRow = calcNewRow.bind(undefined, rules);
     
         exports.run = () => {
-            container.appendChild(genFirstRow(cellsPerRow, spec.randState));
+            container.appendChild(genFirstRow(cellsPerRow, spec.randState, color1, color2));
             for (let i=0; i<spec.rowCount; i++) {
-                container.appendChild(newRow(container.children[i]));
+                container.appendChild(newRow(container.children[i], color1, color2));
             }
         };
         return exports;

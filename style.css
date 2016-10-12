@@ -28,19 +28,11 @@ body {
     margin: -8px;
 }
 
-.active, .inactive {
+.row div {
     width: 10px;
     height: 10px;
     margin: 0px;
     display: inline-block;
-}
-
-.inactive {
-    background-color: #119999;
-}
-
-.active {
-    background-color: #661111;
 }
 
 label {
