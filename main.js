@@ -6,7 +6,6 @@
         randState: true,
         rowCount: 300,
         containerID: 'container',
-        delay: 50,
         rule: [1,0,1,0,0,0,0,1]
     });
     automata.run();
@@ -35,7 +34,6 @@ document
         randState: randState,
         rowCount: 300,
         containerID: 'container',
-        delay: 50,
         rule: rule
     });
     automata.run();
