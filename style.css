@@ -1,41 +1,41 @@
 body {
-    background-color: #111111;
+	background-color: #111111;
 }
 
 #container, #control {
-    text-align: center;
+	text-align: center;
 }
 
 #control {
-    margin: 1em;
+	margin: 1em;
 }
 
 #control a {
-    float: right;
-    margin-top: -1.3em;
-    color: #119999;
+	float: right;
+	margin-top: -1.3em;
+	color: #119999;
 }
 
 #control a:hover {
-    color: #44CCCC;
+	color: #44CCCC;
 }
 
 #regen {
-    margin-left: 1.5em;
+	margin-left: 1.5em;
 }
 
 .row {
-    margin: -8px;
+	margin: -8px;
 }
 
 .row div {
-    width: 10px;
-    height: 10px;
-    margin: 0px;
-    display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin: 0px;
+	display: inline-block;
 }
 
 label {
-    color: #EEEEEE;
-    margin-left: 1.5em;
+	color: #EEEEEE;
+	margin-left: 1.5em;
 }
