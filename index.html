@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <title>Cellular Automata</title>
-        <link rel="stylesheet" href="style.css" type="text/css" />
-    </head>
-    <body>
-        <div id="control">
-            <form name="regen-form">
-                <label for="color1">Color 1: </label>
-                <input type="color" name="color1-input" id="color1" value="#661111" required/>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Cellular Automata</title>
+		<link rel="stylesheet" href="style.css" type="text/css" />
+	</head>
+	<body>
+		<div id="control">
+			<form name="regen-form">
+				<label for="color1">Color 1: </label>
+				<input type="color" name="color1" id="color1" value="#661111" required/>
 
-                <label for="color2">Color 2: </label>
-                <input type="color" name="color1-input" id="color2" value="#119999" required/>
+				<label for="color2">Color 2: </label>
+				<input type="color" name="color2" id="color2" value="#119999" required/>
 
-                <label for="rule">Rule: </label>
-                <input type="text" name="rule-input" id="rule" value="10000001" pattern="[0|1]{8}" required/>
+				<label for="rule">Rule: </label>
+				<input type="text" name="rule" id="rule" value="10000001" pattern="[0|1]{8}" required/>
 
-                <label for="rule-rand">Random Initial State: </label>
-                <input type="checkbox" name="rule-rand" id="rand" value="" checked/>
+				<label for="rule-rand">Random Initial State: </label>
+				<input type="checkbox" name="rand" id="rand" value="" checked/>
 
-                <input type="submit" name="rule-submit" id="regen" value="Generate" />
-            </form>
-            <a href="https://github.com/Oisota/CellularAutomata">Source Code</a>
-        </div>
-        <div id="container">
-        </div>
-        <script src="automata.js"></script> 
-        <script src="main.js"></script> 
-    </body>
+				<input type="submit" name="rule-submit" id="regen" value="Generate" />
+			</form>
+			<a href="https://github.com/Oisota/CellularAutomata">Source Code</a>
+		</div>
+		<div id="container">
+		</div>
+		<script src="automata.js"></script> 
+		<script src="main.js"></script> 
+	</body>
 </html>
