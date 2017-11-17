@@ -1,8 +1,22 @@
 'use strict';
 
+/**
+ * @param {Object} spec - specification object
+ * @param {Array<string>} spec.colors - an array containing 2 color hexcodes as strings
+ * @param {bool} spec.randState - indicate if initial row should be random or not
+ * @param {int} spec.rowCount - number of rows to generate
+ * @param {string} containerID - the id of the element to generate the automata in
+ * @param {Array<int>} spec.rule - an array of length 8 containing the rule to use to generate the automata
+ */
 function Automata(spec) {
 
-	const initRow = (cellsPerRow, rand, colors) => {
+	/**
+	 * @param {int} cellsPerRow - number of cells in each row
+	 * @param {bool} rand - indicate if row should be random or not
+	 * @param {Array<string>} colors - an array containing 2 color hexcodes as strings
+	 * @returns {div} the initial row div object
+	 */
+	function initRow(cellsPerRow, rand, colors) {
 		const randChoice = arr => arr[Math.floor(Math.random() * arr.length)];
 		const row = document.createElement('div');
 		row.setAttribute('class', 'row');
@@ -19,7 +33,12 @@ function Automata(spec) {
 		return row; 
 	};
 
-	const newRow = (rules, colors, oldRow) => {
+	/**
+	 * @param {} rules - 
+	 * @param {Array<string>} colors - an array containing 2 color hexcodes as strings
+	 * @param {div} oldRow - 
+	 */
+	function newRow(rules, colors, oldRow) {
 		const state = cell => cell.style.backgroundColor === colors[0];
 		const match = (rule, left, right, center) => { 
 			return state(left) === rule.left && state(center) === rule.center && state(right) === rule.right;
