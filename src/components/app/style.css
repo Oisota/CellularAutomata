@@ -1,0 +1,25 @@
+body {
+	font-family: sans-serif;
+	background-color: #111111;
+}
+
+.control {
+	text-align: center;
+	margin: 1em;
+}
+
+
+.control a {
+	float: right;
+	margin-top: -1.3em;
+	color: #119999;
+}
+
+.control a:hover {
+	color: #44CCCC;
+}
+
+.control label {
+	color: #EEEEEE;
+	margin-left: 1.5em;
+}

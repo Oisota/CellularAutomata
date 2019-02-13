@@ -1,0 +1,10 @@
+.row {
+	margin: -8px;
+}
+
+.cell {
+	width: 10px;
+	height: 10px;
+	margin: 0;
+	display: inline-block;
+}

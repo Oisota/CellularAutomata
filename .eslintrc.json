@@ -1,25 +1,49 @@
 {
-    "env": {
-        "browser": true,
-        "es6": true
-    },
-    "extends": "eslint:recommended",
-    "rules": {
-        "indent": [
-            "error",
-            "tab"
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
-    }
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"es6": true,
+		"node": true
+	},
+	"extends": "eslint:recommended",
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module"
+	},
+	"rules": {
+		"no-console": 0,
+		"indent": [
+			"error",
+			"tab",
+			{ "SwitchCase": 1 }
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"quotes": [
+			"error",
+			"single"
+		],
+		"semi": [
+			"error",
+			"always"
+		],
+		"no-else-return": [
+			"error",
+			{"allowElseIf": true}
+		],
+		"no-param-reassign": "error",
+		"array-callback-return": "error",
+		"no-use-before-define": "error",
+		"global-require": "error",
+		"no-process-env": "error",
+		"no-lonely-if": "error",
+		"max-params": ["error", 4],
+		"max-len": [
+			"error",
+			{"code": 120, "tabWidth": 2}
+		],
+		"no-plusplus": "error"
+	}
 }
