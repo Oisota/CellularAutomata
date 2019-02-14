@@ -25,6 +25,14 @@ export default {
 			required: true,
 		},
 	},
+	data() {
+		return {
+			columns: 0,
+		};
+	},
+	mounted() {
+		this.columns = Math.floor(this.$el.offsetWidth / 10);
+	},
 	computed: {
 		cells() {
 			const rules = Array.from(Array(8)) //create empty array
@@ -35,8 +43,9 @@ export default {
 					prev[cur] = rule[idx] === 1;
 					return prev;
 				}, {})); //convert to rule objects
-			const row = this.initRow(100, this.rand, [this.color1, this.color2]);
+			const row = this.initRow(this.columns, this.rand, [this.color1, this.color2]);
 			/*
+			TODO try to get this working:
 			return Array.from(Array(this.rows)).reduce((acc, cur, idx) => {
 				acc.push(this.newRow(rules, acc[idx], [this.color1, this.color2]));
 				return acc;
@@ -52,7 +61,7 @@ export default {
 		},
 		ruleArray() {
 			return this.rule.split('').map(Number);
-		}
+		},
 	},
 	methods: {
 		/**
