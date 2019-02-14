@@ -8,8 +8,10 @@
 			<label for="color2">Color 2: </label>
 			<input type="color" v-model="color2" required/>
 
-			<label for="rule">Rule: </label>
-			<input type="text" pattern="[0|1]{8}" v-model="rule" required/>
+			<label>Rule: </label>
+			<span v-for="r in rule">
+				<input type="checkbox" v-model="r.value">
+			</span>
 
 			<label for="rule-rand">Random Initial State: </label>
 			<input type="checkbox" v-model="rand" checked/>
@@ -20,7 +22,7 @@
 	<cell-grid
 		v-bind:color1="color1"
 		v-bind:color2="color2"
-		v-bind:rule="rule"
+		v-bind:rule="ruleString"
 		v-bind:rand="rand"
 		v-bind:rows="rows">
 	</cell-grid>
