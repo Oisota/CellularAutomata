@@ -3,10 +3,10 @@
 	<div class="control">
 		<form>
 			<label for="color1">Color 1: </label>
-			<input type="color" v-model="color1" required/>
+			<input type="color" v-model="debouncedColor1" required/>
 
 			<label for="color2">Color 2: </label>
-			<input type="color" v-model="color2" required/>
+			<input type="color" v-model="debouncedColor2" required/>
 
 			<label>Rule: </label>
 			<span v-for="r in rule">
