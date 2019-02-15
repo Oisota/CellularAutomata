@@ -13,8 +13,8 @@ export default {
 			debouncedColor1: '#661111',
 			debouncedColor2: '#119999',
 			rand: false,
-			rule: [1,0,0,0,0,0,0,1].map(x => x ? {value: true} : {value: false}),
-			rows: 300,
+			rule: [1,0,0,0,0,0,0,1].map(x => ({value: x ? true : false})),
+			rows: 200,
 		};
 	},
 	created() {
