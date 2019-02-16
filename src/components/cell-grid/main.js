@@ -43,20 +43,15 @@ export default {
 					prev[cur] = rule[idx] === 1;
 					return prev;
 				}, {})); //convert to rule objects
-			const row = this.initRow(this.columns, this.rand, [this.color1, this.color2]);
-			/*
-			TODO try to get this working:
-			return Array.from(Array(this.rows)).reduce((acc, cur, idx) => {
-				acc.push(this.newRow(rules, acc[idx], [this.color1, this.color2]));
-				return acc;
-			}, [row]);
-			*/
-			const rows = [row];
-			Array.from(Array(this.rows)).forEach((_, idx) => {
-				const r = this.newRow(rules, [this.color1, this.color2], rows[idx]);
-				rows.push(r);
-			});
-			return rows
+
+			const firstRow = this.initRow(this.columns, this.rand, [this.color1, this.color2]);
+
+			return Array.from(Array(this.rows))
+				.reduce((acc, cur, idx) => {
+					const row = this.newRow(rules, [this.color1, this.color2], acc[idx]);
+					acc.push(row);
+					return acc;
+				}, [firstRow])
 				.map(r => r.map(c => `background-color: ${c}`));
 		},
 		ruleArray() {
