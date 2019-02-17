@@ -91,9 +91,10 @@ export default Vue.extend({
 			return row; 
 		},
 		/**
-		 * @param {} rules - 
+		 * @param {Array<Rule>} rules - the rule array to calculate the new row from
 		 * @param {Array<string>} colors - an array containing 2 color hexcodes as strings
-		 * @param {Array<string>} oldRow - 
+		 * @param {Array<string>} oldRow - the previous row
+		 * @returns {Array<string>} the new row
 		 */
 		newRow(rules: Rule[], colors: string[], oldRow: string[]): string[] {
 			const state = (cell: string) => cell === colors[0];
