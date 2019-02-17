@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "webpack-dev-server --config webpack.dev.js",
 		"build": "webpack --config=webpack.prod.js",
-		"deploy": "scp ./dist/* derek@derekmorey.me:/var/www/cellular-automata/"
+		"deploy": "npm run build && scp ./dist/* derek@derekmorey.me:/var/www/derek/projects/cellular-automata/"
 	},
 	"repository": {
 		"type": "git",
@@ -23,10 +23,7 @@
 	},
 	"homepage": "https://github.com/Oisota/CellularAutomata#readme",
 	"devDependencies": {
-		"@babel/core": "^7.2.2",
-		"@babel/preset-env": "^7.3.1",
 		"@types/lodash": "^4.14.121",
-		"babel-loader": "^8.0.5",
 		"clean-webpack-plugin": "^1.0.1",
 		"css-loader": "^2.1.0",
 		"eslint": "^5.13.0",
