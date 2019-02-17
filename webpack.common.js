@@ -6,11 +6,14 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-	entry: './src/index.js',
+	entry: './src/index.ts',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: '[name].[contenthash].js',
 		publicPath: '/',
+	},
+	resolve: {
+		extensions: ['.wasm', '.mjs', '.js', '.json', '.ts', '.vue'],
 	},
 	optimization: {
 		runtimeChunk: 'single',
@@ -32,15 +35,14 @@ module.exports = {
 				use: 'vue-loader',
 			},
 			{
+				test: /\.ts$/,
+				exclude: /node_modules/,
+				use: 'ts-loader',
+			},
+			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: [
-					{
-						loader: 'babel-loader',
-						options: {
-							presets: ['@babel/preset-env'],
-						},
-					},
 					{
 						loader: 'eslint-loader'
 					}

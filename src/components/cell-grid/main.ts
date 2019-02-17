@@ -1,4 +1,13 @@
-export default {
+import Vue from 'vue';
+
+interface Rule {
+	left: boolean,
+	right: boolean,
+	center: boolean,
+	cell: boolean,
+}
+
+export default Vue.extend({
 	name: 'cell-grid',
 	props: {
 		color1: {
@@ -16,7 +25,7 @@ export default {
 		rule: {
 			type: String,
 			required: true,
-			validator(val) {
+			validator: (val: string): boolean => { // written without shorthand due to typescript bug
 				return val.length == 8;
 			}
 		},
@@ -34,16 +43,8 @@ export default {
 		this.columns = Math.floor(this.$el.offsetWidth / 10);
 	},
 	computed: {
-		cells() {
-			const rules = Array.from(Array(8)) //create empty array
-				.map((_, idx) => ('000' + idx.toString(2)).slice(-3).split('').map(Number)) //convert to 0 - 7 bit array
-				.reverse()
-				.map((rule, idx) => rule.concat(this.ruleArray[idx])) //add rule to rule base
-				.map(rule => ['left','center','right','cell'].reduce((prev, cur, idx) => {
-					prev[cur] = rule[idx] === 1;
-					return prev;
-				}, {})); //convert to rule objects
-
+		cells(): string[][] {
+			const rules = this.genRules();
 			const firstRow = this.initRow(this.columns, this.rand, [this.color1, this.color2]);
 
 			return Array.from(Array(this.rows))
@@ -52,21 +53,35 @@ export default {
 					acc.push(row);
 					return acc;
 				}, [firstRow])
-				.map(r => r.map(c => `background-color: ${c}`));
+				.map((r: string[]) => r.map((c: string) => `background-color: ${c}`));
 		},
-		ruleArray() {
+		ruleArray(): number[] {
 			return this.rule.split('').map(Number);
 		},
 	},
 	methods: {
+		genRules(): Rule[] {
+			return Array.from(Array(8)) //create empty array
+				.map((_, idx):  number[] => ('000' + idx.toString(2)).slice(-3).split('').map(Number)) //convert to 0 - 7 bit array
+				.map((rule, idx) => rule.concat(this.ruleArray[idx])) //add rule to rule base
+				.map((rule: number[]): Rule => {
+					return {
+						left: rule[0] == 1,
+						center: rule[1] == 1,
+						right: rule[2] == 1,
+						cell: rule[3] == 1,
+					};
+				})
+				.reverse();
+		},
 		/**
 		 * @param {int} cellsPerRow - number of cells in each row
 		 * @param {bool} rand - indicate if row should be random or not
 		 * @param {Array<string>} colors - an array containing 2 color hexcodes as strings
-		 * @returns {div} the initial row div object
+		 * @returns {Array<string>} the initial row arrary
 		 */
-		initRow(cellsPerRow, rand, colors) {
-			const randChoice = arr => arr[Math.floor(Math.random() * arr.length)];
+		initRow(cellsPerRow: number, rand: boolean, colors: string[]): string[] {
+			const randChoice = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
 			const row = Array.from(Array(cellsPerRow))
 				.map(() => rand ? randChoice(colors) : colors[1]);
 
@@ -78,11 +93,11 @@ export default {
 		/**
 		 * @param {} rules - 
 		 * @param {Array<string>} colors - an array containing 2 color hexcodes as strings
-		 * @param {div} oldRow - 
+		 * @param {Array<string>} oldRow - 
 		 */
-		newRow(rules, colors, oldRow) {
-			const state = cell => cell === colors[0];
-			const match = (rule, left, right, center) => { 
+		newRow(rules: Rule[], colors: string[], oldRow: string[]): string[] {
+			const state = (cell: string) => cell === colors[0];
+			const match = (rule: Rule, left: string, right: string, center: string) => { 
 				return state(left) === rule.left &&
 					state(center) === rule.center &&
 					state(right) === rule.right;
@@ -101,4 +116,4 @@ export default {
 			});
 		},
 	},
-};
+});

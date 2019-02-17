@@ -1,7 +1,8 @@
+import Vue from 'vue';
 import CellGrid from '../cell-grid';
 import debounce from 'lodash/debounce';
 
-export default {
+export default Vue.extend({
 	name: 'app',
 	components: {
 		'cell-grid': CellGrid,
@@ -22,24 +23,24 @@ export default {
 		this.setColor2 = debounce(this.setColor2, 250);
 	},
 	computed: {
-		ruleString() {
+		ruleString(): string {
 			return this.rule.map(r => r.value ? 1 : 0).join('');
 		}
 	},
 	methods: {
-		setColor1(c) {
+		setColor1(c: string) {
 			this.color1 = c;
 		},
-		setColor2(c) {
+		setColor2(c: string) {
 			this.color2 = c;
 		},
 	},
 	watch: {
-		debouncedColor1(newColor) {
+		debouncedColor1(newColor: string) {
 			this.setColor1(newColor);
 		},
-		debouncedColor2(newColor) {
+		debouncedColor2(newColor: string) {
 			this.setColor2(newColor);
 		},
 	}
-};
+});
