@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "webpack-dev-server --config webpack.dev.js",
 		"build": "webpack --config=webpack.prod.js",
-		"deploy": "npm run build && scp ./dist/* derek@derekmorey.me:/var/www/derek/projects/cellular-automata/"
+		"deploy": "npm run build && scp -r ./dist/* derek@derekmorey.me:/var/www/derek/projects/cellular-automata/"
 	},
 	"repository": {
 		"type": "git",

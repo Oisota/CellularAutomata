@@ -9,8 +9,8 @@ module.exports = {
 	entry: './src/index.ts',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: '[name].[contenthash].js',
-		publicPath: '/',
+		filename: 'static/[name].[contenthash].js',
+		publicPath: '',
 	},
 	resolve: {
 		extensions: ['.wasm', '.mjs', '.js', '.json', '.ts', '.vue'],
