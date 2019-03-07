@@ -7,6 +7,20 @@ interface Rule {
 	cell: boolean,
 }
 
+interface Data {
+	ctx: CanvasRenderingContext2D | null,
+	width: number,
+	height: number,
+	cellWidth: number,
+	cellHeight: number,
+}
+
+interface CellRect {
+	color: string,
+	x: number,
+	y: number,
+}
+
 export default Vue.extend({
 	name: 'cell-grid',
 	props: {
@@ -29,35 +43,54 @@ export default Vue.extend({
 				return val.length == 8;
 			}
 		},
-		rows: {
-			type: Number,
-			required: true,
-		},
 	},
-	data() {
+	data(): Data {
 		return {
-			columns: 0,
+			ctx: null,
+			width: 0,
+			height: 0,
+			cellWidth: 10,
+			cellHeight: 10,
 		};
 	},
 	mounted() {
-		this.columns = Math.floor(this.$el.offsetWidth / 10);
+		this.ctx = (this.$refs.cellCanvas as HTMLCanvasElement).getContext('2d');
+		const el = this.$el as HTMLCanvasElement;
+		this.width = el.width;
+		this.height = el.height;
 	},
 	computed: {
-		cells(): string[][] {
+		cells(): CellRect[][] {
 			const rules = this.genRules();
 			const firstRow = this.initRow(this.columns, this.rand, [this.color1, this.color2]);
 
 			return Array.from(Array(this.rows))
-				.reduce((acc, cur, idx) => {
+				.reduce((acc, _, idx) => {
 					const row = this.newRow(rules, [this.color1, this.color2], acc[idx]);
 					acc.push(row);
 					return acc;
 				}, [firstRow])
-				.map((r: string[]) => r.map((c: string) => `background-color: ${c}`));
+				.map((r: Array<string>, i: number) : Array<CellRect> => {
+					const cellY = i * this.cellHeight;
+					return r.map((c: string, j: number) : CellRect => {
+						const cellX = j * this.cellWidth;
+						return {
+							color: c,
+							x: cellX,
+							y: cellY,
+						}
+					})
+				});
 		},
 		ruleArray(): number[] {
 			return this.rule.split('').map(Number);
 		},
+		columns(): number {
+			return Math.floor(this.width / this.cellWidth);
+		},
+		rows(): number {
+			return Math.floor(this.height / this.cellHeight);
+		}
 	},
 	methods: {
 		genRules(): Rule[] {
@@ -116,5 +149,21 @@ export default Vue.extend({
 				return newCenter;
 			});
 		},
+		renderCanvas() {
+			if (this.ctx !== null) {
+				this.ctx.clearRect(0, 0, this.width, this.height);
+				for (const row of this.cells) {
+					for (const cell of row) {
+						this.ctx.fillStyle = cell.color;
+						this.ctx.fillRect(cell.x, cell.y, this.cellWidth, this.cellHeight);
+					}
+				}
+			}
+		}
 	},
+	watch: {
+		cells() {
+			this.renderCanvas();
+		}
+	}
 });

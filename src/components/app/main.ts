@@ -15,7 +15,6 @@ export default Vue.extend({
 			debouncedColor2: '#119999',
 			rand: false,
 			rule: [1,0,0,0,0,0,0,1].map(x => ({value: x ? true : false})),
-			rows: 200,
 		};
 	},
 	created() {
