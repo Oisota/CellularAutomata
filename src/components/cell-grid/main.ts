@@ -131,7 +131,7 @@ export default Vue.extend({
 		 */
 		newRow(rules: Rule[], colors: string[], oldRow: string[]): string[] {
 			const state = (cell: string) => cell === colors[0];
-			const match = (rule: Rule, left: string, right: string, center: string) => { 
+			const match = (rule: Rule, left: string, right: string, center: string): boolean => { 
 				return state(left) === rule.left &&
 					state(center) === rule.center &&
 					state(right) === rule.right;
@@ -140,12 +140,12 @@ export default Vue.extend({
 				const left = row[idx-1] || row[row.length-1];
 				const center = el;
 				const right = row[idx+1] || row[0];
-				let newCenter = '';
-				rules.forEach(rule => { // use array.find here?
-					if (match(rule, left, right, center)) {
-						newCenter = rule.cell ? colors[0] : colors[1];
-					}
-				});
+				const rule = rules.find(rule => match(rule, left, right, center));
+				const newCenter = (!!rule)
+					? rule.cell
+						? colors[0]
+						: colors[1]
+					: '';
 				return newCenter;
 			});
 		},
