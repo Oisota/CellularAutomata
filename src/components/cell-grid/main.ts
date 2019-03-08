@@ -49,8 +49,8 @@ export default Vue.extend({
 			ctx: null,
 			width: 0,
 			height: 0,
-			cellWidth: 10,
-			cellHeight: 10,
+			cellWidth: 5,
+			cellHeight: 5,
 		};
 	},
 	mounted() {
